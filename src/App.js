@@ -34,6 +34,12 @@ function App() {
     });
   };
 
+  const removeTask = indexRemoved => {
+    setTasks(prevTask => {
+      return prevTask.filter((_, index) => index !== indexRemoved);
+    });
+  };
+
   const numberComplete = tasks.filter(t => t.done).length;
   const numberTotal = tasks.length;
   const getMessage = () => {
@@ -50,10 +56,18 @@ function App() {
     return 'Keep it going💪🏻';
   };
 
+  const renameTask = (index, name) => {
+    setTasks(prev => {
+      const newTasks = [...prev];
+      newTasks[index].name = name;
+      return newTasks;
+    });
+  };
+
   return (
     <main>
       <h1>
-        {numberComplete}/{numberTotal} Selesai
+        {numberComplete}/{numberTotal} Completed
       </h1>
       <h2>{getMessage()}</h2>
 
@@ -63,6 +77,8 @@ function App() {
           {...task}
           key={index}
           onToggle={done => udpateTaskDone(index, done)}
+          onTrash={newName => removeTask(index, newName)}
+          onRename={name => renameTask(index, name)}
         />
       ))}
     </main>
