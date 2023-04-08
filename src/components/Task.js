@@ -1,11 +1,11 @@
 import React from 'react';
 import Checkbox from './Checkbox';
 
-const Task = ({ name, done }) => {
+const Task = ({ name, done, onToggle }) => {
   return (
-    <div className="task">
-      <Checkbox defaultChecked={done} />
-      {name}
+    <div className={'task ' + (done ? 'done' : '')}>
+      <Checkbox checked={done} onClick={() => onToggle(!done)} />
+      <span>{name}</span>
     </div>
   );
 };
